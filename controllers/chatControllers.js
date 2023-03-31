@@ -16,9 +16,7 @@ const accessChat = asyncHandler(async (req, res) => {
             { users: { $elemMatch: { $eq: req.user._id } } },
             { users: { $elemMatch: { $eq: userId } } }
         ],
-    })
-        .populate('users', '-password')
-        .populate('latestMessage');
+    }).populate('users', '-password').populate('latestMessage');
 
     isChat = await User.populate(isChat, {
         path: 'latestMatch.sender',
@@ -26,7 +24,7 @@ const accessChat = asyncHandler(async (req, res) => {
     });
 
     if (isChat.length > 0) {
-        res.send(isChat[0]);
+        return res.send(isChat[0]);
     }
     else {
         let chatData = {
@@ -36,13 +34,10 @@ const accessChat = asyncHandler(async (req, res) => {
         }
 
         try {
-            const createdChat = await Chat.create(chatData);
+            const createdChat = await Chat(chatData);
+            await createdChat.save();
 
-            const FullChat = await Chat.findOne({ _id: createdChat._id }).populate(
-                "users",
-                "-password"
-            );
-
+            const FullChat = await Chat.findOne({ _id: createdChat._id }).populate("users", "-password");
             res.status(200).send(FullChat);
         }
         catch (error) {
