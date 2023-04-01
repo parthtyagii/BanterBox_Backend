@@ -84,7 +84,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
     users.push(req.user);
 
     try {
-        const groupChat = await User({
+        const groupChat = await Chat({
             chatName: req.body.name,
             users: users,
             isGroupChat: true,
@@ -99,6 +99,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
         res.status(200).json(fullGroupChat);
     }
     catch (error) {
+        console.log('asdad')
         res.status(400)
         throw new Error(error.message);
     }
