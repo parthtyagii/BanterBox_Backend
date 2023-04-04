@@ -27,7 +27,9 @@ app.use('/api/message', messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const server = app.listen(1000, () => {
+const PORT = process.env.PORT || 1000;
+
+const server = app.listen(PORT, () => {
     console.log('Server 1000 running!');
 })
 
