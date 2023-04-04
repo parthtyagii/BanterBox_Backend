@@ -6,7 +6,6 @@ const accessChat = asyncHandler(async (req, res) => {
     const { userId } = req.body;
 
     if (!userId) {
-        console.log('UserId param not send with request');
         return res.sendStatus(400);
     }
 
@@ -99,7 +98,6 @@ const createGroupChat = asyncHandler(async (req, res) => {
         res.status(200).json(fullGroupChat);
     }
     catch (error) {
-        console.log('asdad')
         res.status(400)
         throw new Error(error.message);
     }

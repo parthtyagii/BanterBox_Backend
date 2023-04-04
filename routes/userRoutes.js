@@ -4,11 +4,7 @@ const { registerUser, authUser, allUsers } = require('../controllers/userControl
 const { protect } = require('../middlewares/authMiddleware.js');
 
 
-
 router.route('/').post(registerUser).get(protect, allUsers);
 router.post('/login', authUser);
-
-
-
 
 module.exports = router;
