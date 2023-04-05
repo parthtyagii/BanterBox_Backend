@@ -66,7 +66,7 @@ io.on('connection', (socket) => {
                 return;
             }
             else {
-                socket.in(user._id).emit('message received', newMessageReceived);
+                socket.broadcast.to(user._id).emit('message received', newMessageReceived);
             }
         })
 
